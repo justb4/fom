@@ -5,7 +5,7 @@ namespace FOM\UserBundle\Security\Firewall;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\Security\Http\Firewall\ListenerInterface;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
-use Symfony\Component\Security\Core\TokenStorage;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
 use Symfony\Component\Security\Core\Authentication\AuthenticationManagerInterface;
 use FOM\UserBundle\Security\Authentication\Token\SspiUserToken;
 

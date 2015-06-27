@@ -4,7 +4,8 @@ namespace FOM\UserBundle\Form\Type;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Security\Core\AuthorizationChecker;
+use Symfony\Component\Security\Core\Authorization\AuthorizationChecker;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
 use Symfony\Component\Security\Acl\Model\AclProviderInterface;
 use Symfony\Component\Security\Acl\Domain\UserSecurityIdentity;
 use Symfony\Component\Security\Acl\Domain\RoleSecurityIdentity;
@@ -34,9 +35,10 @@ class ACLType extends AbstractType
     protected $router;
 
     public function __construct(AuthorizationChecker $securityContext,
-        AclProviderInterface $aclProvider, $router)
+    AclProviderInterface $aclProvider, TokenStorage $tokenStorage, $router)
     {
         $this->securityContext = $securityContext;
+        $this->tokenStorage = $tokenStorage;
         $this->aclProvider = $aclProvider;
         $this->router = $router;
     }
@@ -79,7 +81,7 @@ class ACLType extends AbstractType
                 $oid = null;
                 $aces = array ();
 
-                $owner = $this->securityContext->getToken()->getUser();
+                $owner = $this->tokenStorage->getToken()->getUser();
                 $ownerAccess = array (
                     'sid' => UserSecurityIdentity::fromAccount($owner),
                     'mask' => MaskBuilder::MASK_OWNER);

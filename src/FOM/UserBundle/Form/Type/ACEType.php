@@ -5,7 +5,7 @@ namespace FOM\UserBundle\Form\Type;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Security\Core\AuthorizationChecker;
+use Symfony\Component\Security\Core\Authorization\AuthorizationChecker;
 use Symfony\Component\Security\Acl\Model\AclProviderInterface;
 use Symfony\Component\DependencyInjection\Container;
 use FOM\ManagerBundle\Form\Type\TagboxType;
