@@ -35,7 +35,7 @@ class UserController extends Controller {
      * @Template
      */
     public function indexAction() {
-        $securityContext = $this->get('security.context');
+        $securityContext = $this->get('security.authorization_checker');
         $oid = new ObjectIdentity('class', 'FOM\UserBundle\Entity\User');
 
         $query = $this->getDoctrine()->getManager()->createQuery('SELECT r FROM FOMUserBundle:User r');
@@ -62,7 +62,7 @@ class UserController extends Controller {
         $user = new User();
 
         // ACL access check
-        $securityContext = $this->get('security.context');
+        $securityContext = $this->get('security.authorization_checker');
         $oid = new ObjectIdentity('class', get_class($user));
         if(false === $securityContext->isGranted('CREATE', $oid)) {
             throw new AccessDeniedException();
@@ -97,7 +97,7 @@ class UserController extends Controller {
         $user = new User();
 
         // ACL access check
-        $securityContext = $this->get('security.context');
+        $securityContext = $this->get('security.authorization_checker');
         $oid = new ObjectIdentity('class', get_class($user));
         if(false === $securityContext->isGranted('CREATE', $oid)) {
             throw new AccessDeniedException();
@@ -193,7 +193,7 @@ class UserController extends Controller {
         }
 
         // ACL access check
-        $securityContext = $this->get('security.context');
+        $securityContext = $this->get('security.authorization_checker');
         if(false === $securityContext->isGranted('EDIT', $user)) {
             throw new AccessDeniedException();
         }
@@ -232,7 +232,7 @@ class UserController extends Controller {
         }
 
         // ACL access check
-        $securityContext = $this->get('security.context');
+        $securityContext = $this->get('security.authorization_checker');
         if(false === $securityContext->isGranted('EDIT', $user)) {
             throw new AccessDeniedException();
         }
@@ -317,7 +317,7 @@ class UserController extends Controller {
         }
 
         // ACL access check
-        $securityContext = $this->get('security.context');
+        $securityContext = $this->get('security.authorization_checker');
         if(false === $securityContext->isGranted('DELETE', $user)) {
             throw new AccessDeniedException();
         }

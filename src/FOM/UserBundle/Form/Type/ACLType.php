@@ -4,7 +4,7 @@ namespace FOM\UserBundle\Form\Type;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Security\Core\SecurityContext;
+use Symfony\Component\Security\Core\AuthorizationChecker;
 use Symfony\Component\Security\Acl\Model\AclProviderInterface;
 use Symfony\Component\Security\Acl\Domain\UserSecurityIdentity;
 use Symfony\Component\Security\Acl\Domain\RoleSecurityIdentity;
@@ -33,7 +33,7 @@ class ACLType extends AbstractType
     protected $aclProvider;
     protected $router;
 
-    public function __construct(SecurityContext $securityContext,
+    public function __construct(AuthorizationChecker $securityContext,
         AclProviderInterface $aclProvider, $router)
     {
         $this->securityContext = $securityContext;

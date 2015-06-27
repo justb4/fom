@@ -65,7 +65,7 @@ class ManagerController extends Controller
 
     protected function pruneSubroutes(&$container)
     {
-        $securityContext = $this->get('security.context');
+        $securityContext = $this->get('security.authorization_checker');
         if(is_array($container) && array_key_exists('subroutes', $container)) {
             foreach($container['subroutes'] as $idx2 => &$route) {
                 if(array_key_exists('enabled', $route)) {
@@ -83,7 +83,7 @@ class ManagerController extends Controller
     protected function getManagerControllersDefinition()
     {
         $manager_controllers = array();
-        $securityContext = $this->get('security.context');
+        $securityContext = $this->get('security.authorization_checker');
         foreach($this->get('kernel')->getBundles() as $bundle) {
             if(is_subclass_of($bundle, 'FOM\ManagerBundle\Component\ManagerBundle')) {
                 $controllers = $bundle->getManagerControllers();
@@ -119,4 +119,3 @@ class ManagerController extends Controller
         return $manager_controllers;
     }
 }
-

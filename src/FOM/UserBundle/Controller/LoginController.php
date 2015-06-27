@@ -35,13 +35,6 @@ class LoginController extends Controller {
      */
     public function loginAction() {
         $request = $this->get('request');
-        /*
-        if($request->attributes->has(SecurityContext::AUTHENTICATION_ERROR)) {
-            $error = $request->attributes->get(SecurityContext::AUTHENTICATION_ERROR);
-        } else {
-            $error = $request->getSession()->get(SecurityContext::AUTHENTICATION_ERROR);
-        }
-        */
 
         $session = $request->getSession();
 

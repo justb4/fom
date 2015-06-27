@@ -66,7 +66,7 @@ class FOMGroupsType extends AbstractType
                 $qb = $repository->createQueryBuilder($builderName);
                 if($options['user_groups'])
                 {
-                    $securityContext = $type->getContainer()->get('security.context');
+                    $securityContext = $type->getContainer()->get('security.token_storage');
                     $user = $securityContext->getToken()->getUser();
                     if(is_object($user)) {
                         $qb->join($builderName . '.users', 'u', 'WITH', 'u.id = :uid')

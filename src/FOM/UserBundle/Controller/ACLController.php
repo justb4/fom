@@ -30,7 +30,7 @@ class ACLController extends Controller
     public function editAction()
     {
         // ACL access check
-        $securityContext = $this->get('security.context');
+        $securityContext = $this->get('security.authorization_checker');
         $oid = new ObjectIdentity('class', 'Symfony\Component\Security\Acl\Domain\Acl');
         if(false === $securityContext->isGranted('EDIT', $oid)) {
             throw new AccessDeniedException();
@@ -59,7 +59,7 @@ class ACLController extends Controller
     public function updateAction()
     {
         // ACL access check
-        $securityContext = $this->get('security.context');
+        $securityContext = $this->get('security.authorization_checker');
         $oid = new ObjectIdentity('class', 'Symfony\Component\Security\Acl\Domain\Acl');
         if(false === $securityContext->isGranted('EDIT', $oid)) {
             throw new AccessDeniedException();
@@ -106,7 +106,7 @@ class ACLController extends Controller
     public function getClassACLForm($class)
     {
         return $this->createForm(new ACLType(
-            $this->get('security.context'),
+            $this->get('security.authorization_checker'),
             $this->get('security.acl.provider'),
             $this->get('router')), array(), array(
                 'mapped' => false,

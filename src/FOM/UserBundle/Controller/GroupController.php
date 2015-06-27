@@ -30,7 +30,7 @@ class GroupController extends Controller {
      * @Template
      */
     public function indexAction() {
-        $securityContext = $this->get('security.context');
+        $securityContext = $this->get('security.authorization_checker');
         $oid = new ObjectIdentity('class', 'FOM\UserBundle\Entity\Group');
 
         $query = $this->getDoctrine()->getManager()->createQuery('SELECT g FROM FOMUserBundle:Group g');
@@ -57,7 +57,7 @@ class GroupController extends Controller {
         $group = new Group();
 
         // ACL access check
-        $securityContext = $this->get('security.context');
+        $securityContext = $this->get('security.authorization_checker');
         $oid = new ObjectIdentity('class', get_class($group));
         if(false === $securityContext->isGranted('CREATE', $oid)) {
             throw new AccessDeniedException();
@@ -86,7 +86,7 @@ class GroupController extends Controller {
         $group = new Group();
 
         // ACL access check
-        $securityContext = $this->get('security.context');
+        $securityContext = $this->get('security.authorization_checker');
         $oid = new ObjectIdentity('class', get_class($group));
         if(false === $securityContext->isGranted('CREATE', $oid)) {
             throw new AccessDeniedException();
@@ -115,7 +115,7 @@ class GroupController extends Controller {
             $acl = $aclProvider->createAcl($objectIdentity);
 
             // retrieving the security identity of the currently logged-in user
-            $securityContext = $this->get('security.context');
+            $securityContext = $this->get('security.token_storage');
             $user = $securityContext->getToken()->getUser();
             $securityIdentity = UserSecurityIdentity::fromAccount($user);
 
@@ -149,7 +149,7 @@ class GroupController extends Controller {
         }
 
         // ACL access check
-        $securityContext = $this->get('security.context');
+        $securityContext = $this->get('security.authorization_checker');
         if(false === $securityContext->isGranted('EDIT', $group)) {
             throw new AccessDeniedException();
         }
@@ -181,7 +181,7 @@ class GroupController extends Controller {
         }
 
         // ACL access check
-        $securityContext = $this->get('security.context');
+        $securityContext = $this->get('security.authorization_checker');
         if(false === $securityContext->isGranted('EDIT', $group)) {
             throw new AccessDeniedException();
         }
@@ -240,7 +240,7 @@ class GroupController extends Controller {
 
         try {
             // ACL access check
-            $securityContext = $this->get('security.context');
+            $securityContext = $this->get('security.authorization_checker');
             if(false === $securityContext->isGranted('DELETE', $group)) {
                 throw new AccessDeniedException();
             }
