@@ -316,7 +316,7 @@
       </trans-unit>
       <trans-unit id="c64e6ae7261a99ed96d7754802424890" resname="fom.user.user.container.users_of_selected">
         <source>fom.user.user.container.users_of_selected</source>
-        <target>Benutzer von %users_count% selektiert</target>
+        <target>Gruppen von %users_count% selektiert</target>
       </trans-unit>
       <trans-unit id="1b09066b0fb3977196f0d580f20217d2" resname="fom.user.user.container.no_goups_defined.">
         <source>fom.user.user.container.no_goups_defined.</source>
@@ -421,6 +421,10 @@
       <trans-unit id="7c8cbf09a39433d48e757aef1dc52765" resname="fom.user.password.reset.btn">
         <source>fom.user.password.reset.btn</source>
         <target>Passwort zurücksetzen</target>
+      </trans-unit>
+      <trans-unit id='manual1' resname="fom.user.password.form.message">
+        <source>fom.user.password.form.message</source>
+        <target>Zum Zurücksetzen des Passworts geben Sie bitte Ihren Benutzernamen oder Ihre E-Mail Adresse an.</target>
       </trans-unit>
       <trans-unit id="bd9c4c31f46a10086b47386ddf5ab9cd" resname="fom.user.password.form.title">
         <source>fom.user.password.form.title</source>

@@ -12,7 +12,7 @@
     width:150px;
     text-align: right;
     padding:0px;
-  }     
+  }
   .iconCheckboxActive, .iconCheckbox{
     @extend .iconOk;
     @extend .iconBig;
@@ -42,6 +42,7 @@
   .tdContentWrapper{
     position:relative;
     padding:5px;
+    padding-left: 25px;
     display:block;
   }
   .checkWrapper{
@@ -68,6 +69,10 @@
     }
     .input, .dropdown{min-width:250px;}
     textarea{height:150px;}
+  }
+
+  .validationInput[disabled] {
+    background: #eeeeee;
   }
 }
 .groupTabContainer .containerBaseData .labelInput{width:90px;}
