@@ -53,6 +53,13 @@ class UserProfileListener implements EventSubscriber
             $uidColname = 'uid';
         }
 
+        $connection = $args->getEntityManager()->getConnection();
+        $platform = $connection->getDatabasePlatform();
+        $uidColname = $connection->quoteIdentifier('uid');
+        if($platform instanceof OraclePlatform) {
+            $uidColname = strtoupper($uidColname);
+        }
+
         // need to add metadata for the basic profile, else doctrine
         // will whine in many situations
         if($profile == $metadata->getName() || $basicProfile == $metadata->getName()) {
