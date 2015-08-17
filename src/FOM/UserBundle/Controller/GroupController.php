@@ -233,11 +233,7 @@ class GroupController extends Controller {
         if($group === null) {
             throw new NotFoundHttpException('The group does not exist');
         }
-        
-        $aclProvider = $this->get('security.acl.provider');
-        $oid = ObjectIdentity::fromDomainObject($group);
-        $aclProvider->deleteAcl($oid);
-        
+
         try {
             // ACL access check
             $securityContext = $this->get('security.context');
@@ -247,6 +243,11 @@ class GroupController extends Controller {
 
             $em = $this->getDoctrine()->getEntityManager();
             $em->remove($group);
+
+            $aclProvider = $this->get('security.acl.provider');
+            $oid = ObjectIdentity::fromDomainObject($group);
+            $aclProvider->deleteAcl($oid);
+
             $em->flush();
 
         } catch(Exception $e) {
@@ -256,4 +257,3 @@ class GroupController extends Controller {
         return new Response();
     }
 }
-
