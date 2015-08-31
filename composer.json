@@ -2,7 +2,6 @@
     "name": "mapbender/fom",
     "description": "Mapbender3 library",
     "keywords": ["mapbender", "module", "fom"],
-    "homepage": "http://github.com/Seldaek/monolog",
     "type": "library",
     "license": "MIT",
     "authors": [
