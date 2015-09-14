@@ -294,6 +294,8 @@ class UserController extends Controller {
 
         }
 
+        $this->get('session')->setFlash('error', 'There field validation errors.');
+
         return array(
             'user' => $user,
             'form' => $form->createView(),
