@@ -388,7 +388,7 @@
       </trans-unit>
       <trans-unit id="c2dd3a91aa1dbb6d29654af01b23eebf" resname="fom.user.password.email_body_html">
         <source>fom.user.password.email_body_html</source>
-        <target><![CDATA[&lt;p&gt;Hallo %user_username%,&lt;/p&gt;&lt;p&gt;Sie haben ein neues Passwort angefordert. &lt;br /&gt;Klicken Sie bitte &lt;a href="%url%"&gt;hier&lt;/a&gt;.]]></target>
+        <target><![CDATA[<p>Hallo %user_username%,</p><p>Sie haben ein neues Mapbender3 Passwort angefordert. <p>Klicken Sie bitte <a href="%url%">hier</a>, um Ihr Passwort zu ändern.</p>]]></target>
       </trans-unit>
       <trans-unit id="d160ecbaff18ffa6372d34ae92839db9" resname="fom.user.password.request_error_no_user">
         <source>fom.user.password.request_error_no_user</source>
@@ -569,6 +569,30 @@
       <trans-unit id="17194ebbd13db2a85cdd9df10b041f5b" resname="form.profile.basic.country">
         <source>form.profile.basic.country</source>
         <target>Land</target>
+      </trans-unit>
+      <trans-unit id="fa79e6576af41618e338bb0770639524" resname="fom.user.login.errors.bad-credentials">
+        <source>fom.user.login.errors.bad-credentials</source>
+        <target>Authentifizierung fehlgeschlagen</target>
+      </trans-unit>
+      <trans-unit id="15a81cc81721a159e6e91890c5141aed" resname="fom.user.user.container.activated">
+        <source>fom.user.user.container.activated</source>
+        <target>aktiviert</target>
+      </trans-unit>
+      <trans-unit id="6cf67002310ad2668e1791ed59470e80" resname="User account is locked.">
+        <source>User account is locked.</source>
+        <target>Benutzeraccount ist gesperrt.</target>
+      </trans-unit>
+      <trans-unit id="a2e3811a3713a404cdb23abf512db362" resname="User account is disabled.">
+        <source>User account is disabled.</source>
+        <target>Benutzeraccount ist deaktiviert.</target>
+      </trans-unit>
+      <trans-unit id="23d48526bdbf2023ad7bdae13ec7f879" resname="User account has expired.">
+        <source>User account has expired.</source>
+        <target>Benutzeraccount ist abgelaufen.</target>
+      </trans-unit>
+      <trans-unit id="2d3eef069b32aacbd940b100195e1e17" resname="User credentials have expired.">
+        <source>User credentials have expired.</source>
+        <target>Anmeldedaten sind abgelaufen.</target>
       </trans-unit>
     </body>
   </file>

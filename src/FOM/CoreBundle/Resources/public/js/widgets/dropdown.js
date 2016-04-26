@@ -9,10 +9,6 @@ var initDropdown = function () {
     }
     var select = me.find("select").val();
     me.find(".dropdownValue").text(me.find('option[value="'+select+'"]').text())
-
-    if (me.css("minWidth").replace("px", "") == "0") {
-        me.width(dropdownList.width() + 60);
-    }
 };
 $(function () {
     // init dropdown list --------------------------------------------------------------------

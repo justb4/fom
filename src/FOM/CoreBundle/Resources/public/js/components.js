@@ -157,19 +157,24 @@ $(function() {
                     $.ajax({
                         url: url,
                         complete: function() {
-                            var groupUserItem, text, me, groupUserType;
+                            var groupUserItem, roleName, me, groupUserType, groupName;
 
                             $("#listFilterGroupsAndUsers").find(".filterItem").each(function(i, e){
-
                                 groupUserItem = $(e);
                                 groupUserType = (groupUserItem.find(".tdContentWrapper")
                                                               .hasClass("iconGroup") ? "iconGroup"
                                                                                      : "iconUser");
-                                $("#permissionsBody").find(".labelInput").each(function(i, e){
+                                $("#permissionsBody").find(".labelInput").each(function(i, e) {
                                     me = $(e);
-                                    text = me.text().trim();
-                                    if((groupUserItem.text().trim().toUpperCase().indexOf(text.toUpperCase()) >= 0) &&
-                                       (me.parent().hasClass(groupUserType))){
+                                    roleName = me.text().trim().toUpperCase();
+                                    groupName = $(".labelInput", groupUserItem).text().toUpperCase();
+                                    var isUserType = (me.parent().hasClass(groupUserType));
+
+                                    if(roleName.indexOf("ROLE_GROUP_") === 0) {
+                                        groupName = "ROLE_GROUP_" + groupName;
+                                    }
+
+                                    if(groupName == roleName && isUserType) {
                                         groupUserItem.remove();
                                     }
                                 });
