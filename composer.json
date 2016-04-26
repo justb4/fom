@@ -14,6 +14,7 @@
         "php": ">=5.3.0"
     },
     "autoload": {
-        "psr-4": {"FOM\\": "src/FOM"}
-    }
+        "psr-0": {"FOM": "."}
+    },
+    "target-dir": "Mapbender/FOM"
 }
