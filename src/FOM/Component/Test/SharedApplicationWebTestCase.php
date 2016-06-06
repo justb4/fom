@@ -14,30 +14,32 @@ class SharedApplicationWebTestCase extends WebTestCase
 
     public static function setUpBeforeClass()
     {
-        //self::runCommand('cache:clear --no-debug');
-        //self::runCommand('cache:warmup --no-debug');
-        self::runCommand('doctrine:database:drop --force');
-        self::runCommand('doctrine:database:create');
-        self::runCommand('doctrine:schema:create');
-        self::runCommand('fom:user:resetroot --username=root --password=root --email=root@example.com --silent');
-        self::runCommand('doctrine:fixtures:load --fixtures=./mapbender/src/Mapbender/CoreBundle/DataFixtures/ORM/Epsg/ --append');
+        static::runCommand('doctrine:database:drop --force');
+        static::runCommand('doctrine:database:create');
+        static::runCommand('doctrine:schema:create');
+        static::runCommand('fom:user:resetroot --username=root --password=root --email=root@example.com --silent');
+        static::runCommand(
+            'doctrine:fixtures:load --fixtures=./mapbender/src/Mapbender/CoreBundle/DataFixtures/ORM/Epsg/ --append'
+        );
     }
 
-    protected static function runCommand($command) {
+    protected static function runCommand($command)
+    {
+        var_dump('command?');
         $command = sprintf('%s --quiet', $command);
-        return self::getApplication()->run(new StringInput($command));
+        return static::getApplication()->run(new StringInput($command));
     }
 
 
-    protected static function getApplication() {
-        if(!static::$application) {
+    protected static function getApplication()
+    {
+        if (!static::$application) {
             $options = static::$options;
             static::$client = static::createClient($options);
 
             static::$application = new Application(static::$client->getKernel());
             static::$application->setAutoExit(false);
         }
-
         return static::$application;
     }
 }
