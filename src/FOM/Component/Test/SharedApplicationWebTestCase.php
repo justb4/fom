@@ -25,7 +25,6 @@ class SharedApplicationWebTestCase extends WebTestCase
 
     protected static function runCommand($command)
     {
-        var_dump('command?');
         $command = sprintf('%s --quiet', $command);
         return static::getApplication()->run(new StringInput($command));
     }
