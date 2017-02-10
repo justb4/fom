@@ -2,10 +2,12 @@
 
 namespace FOM\UserBundle\Component;
 
+use FOM\UserBundle\Entity\AclEntry;
+use Symfony\Component\Security\Acl\Dbal\MutableAclProvider;
+use Symfony\Component\Security\Acl\Domain\Acl;
+use Symfony\Component\Security\Acl\Domain\Entry;
 use Symfony\Component\Security\Acl\Domain\ObjectIdentity;
-use Symfony\Component\Security\Acl\Domain\UserSecurityIdentity;
-use Symfony\Component\Security\Acl\Domain\RoleSecurityIdentity;
-use Symfony\Component\Security\Acl\Permission\MaskBuilder;
+use Symfony\Component\Security\Acl\Exception\AclNotFoundException;
 
 /**
  * ACL Manager service implementation
@@ -13,13 +15,30 @@ use Symfony\Component\Security\Acl\Permission\MaskBuilder;
  * This manager is available as a service called 'fom.acl.manager' and is meant
  * to be used with a form and will delete/update/add ACEs.
  *
+ * @author     Christian Wygoda
+ * @author     Andriy Oblivantsev
+ * @deprecated Use <\Mapbender\CoreBundle\Component\AclManager> instead.
+ */
+/**
+ * ACL Manager service implementation
+ *
+ * This manager is available as a service called 'mapbender.acl' and is meant
+ * to be used with a form and will delete/update/add ACEs.
+ *
  * @author Christian Wygoda
+ * @author Andriy Oblivantsev
  */
 class AclManager
 {
+    /** @var MutableAclProvider  */
     protected $aclProvider;
 
-    public function __construct($aclProvider)
+    /**
+     * AclManager constructor.
+     *
+     * @param MutableAclProvider $aclProvider
+     */
+    public function __construct(MutableAclProvider $aclProvider)
     {
         $this->aclProvider = $aclProvider;
     }
@@ -80,9 +99,11 @@ class AclManager
     /**
      * Update ACEs from a form of class FOM\UserBundle\Form\Type\ACLType
      * (commonly 'acl')
-     * @param object $entity Entity to update ACL for
-     * @param object $form   ACLType form object
-     * @param string $type   ACE type to update (object or class)
+     *
+     * @param        $class
+     * @param object $form ACLType form object
+     * @internal param object $entity Entity to update ACL for
+     * @internal param string $type ACE type to update (object or class)
      */
     public function setClassACLFromForm($class, $form)
     {
@@ -90,6 +111,11 @@ class AclManager
         $this->setClassACL($class, $aces);
     }
 
+    /**
+     * @param $class
+     * @param $aces
+     * @throws \Exception
+     */
     protected function setClassACL($class, $aces)
     {
         $acl = $this->getAcl($class);
@@ -116,20 +142,67 @@ class AclManager
         $this->aclProvider->updateAcl($acl);
     }
 
-    protected function getACL($entity)
+    /**
+     * Get ACL object manager.
+     *
+     * @param $entity
+     * @return mixed
+     * @throws \Symfony\Component\Security\Acl\Exception\InvalidDomainObjectException
+     */
+    public function getACL($entity)
     {
-        if(is_string($entity) && class_exists($entity)) {
+        if (is_string($entity) && class_exists($entity)) {
             $oid = new ObjectIdentity('class', $entity);
         } else {
             $oid = ObjectIdentity::fromDomainObject($entity);
         }
 
         try {
-            $acl = $this->aclProvider->createAcl($oid);
-        } catch(\Exception $e) {
             $acl = $this->aclProvider->findAcl($oid);
+        } catch (AclNotFoundException $e) {
+            $acl = $this->aclProvider->createAcl($oid);
         }
 
         return $acl;
+    }
+
+    /**
+     * Get object ACL entries
+     *
+     * @param $entity
+     * @return Entry[]
+     */
+    public function getObjectAclEntries($entity)
+    {
+        /** @var Acl $acl */
+        $acl = $this->getACL($entity);
+        return $acl->getObjectAces();
+    }
+
+    /**
+     * Get true if object has some ACL entries
+     *
+     * @param $entity
+     * @return bool
+     */
+    public function hasObjectAclEntries($entity)
+    {
+        return count($this->getObjectAclEntries($entity)) > 0;
+    }
+
+
+    /**
+     * Consolidate object ACL entries to an <AclEntry> array.
+     *
+     * @param $entity
+     * @return AclEntry[]
+     */
+    public function getObjectAclEntriesAsArray($entity)
+    {
+        $result = array();
+        foreach ($this->getObjectAclEntries($entity) as $aclEntry) {
+            $result[] = new AclEntry($aclEntry->getSecurityIdentity());
+        }
+        return $result;
     }
 }

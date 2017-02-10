@@ -2,12 +2,12 @@
 
 namespace FOM\UserBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use FOM\ManagerBundle\Configuration\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Symfony\Component\HttpFoundation\Response;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use FOM\UserBundle\Form\Type\ACLType;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Acl\Domain\ObjectIdentity;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
@@ -109,11 +109,11 @@ class ACLController extends Controller
             $this->get('security.context'),
             $this->get('security.acl.provider'),
             $this->get('router')), array(), array(
-                'mapped' => false,
-                'class' => $class,
-                'permissions' => 'standard::class',
-                'create_standard_permissions' => false
-            ));
+            'mapped' => false,
+            'class' => $class,
+            'permissions' => 'standard::class',
+            'create_standard_permissions' => false
+        ));
     }
 
     /**
